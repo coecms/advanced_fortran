@@ -1,17 +1,32 @@
-\section{Testing}
+\section{Debugging}
 
 \begin{frame}[fragile]
     \frametitle{Tracing}
+    Tracing is the simplest form of evaluating the execution.
+
+    Basically it means a lot of statements like
 
     \begin{lstlisting}
-        printf *, "Been here, done that"
+        printf *, "Been here, value of X is ", X
     \end{lstlisting}
 
+    While it is very easy to execute, it requires a lot of code changes and recompiles.
+
+    Plus, at the end you have to remove all the \texttt{print} statements again.
 \end{frame}
 
 \begin{frame}
-    \frametitle{Debugging}
-    totalview
+    \frametitle{Advanced Debugging}
+    Debugging is an Art Form.
+
+    There are several tools available to help, I'll showcase a few examples:
+
+    \begin{itemize}
+        \item Stack Trace
+        \item Run Time Checks
+        \item Debugger
+    \end{itemize}
+
 \end{frame}
 
 \begin{frame}
