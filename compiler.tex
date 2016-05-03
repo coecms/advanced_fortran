@@ -1,20 +1,70 @@
 \section{Compiler}
 \begin{frame}
     \frametitle{Compiler}
+    The main Fortran Compilers used in this centre are:
     \begin{itemize}
         \item Intel Fortran Compiler
         \item gfortran
     \end{itemize}
+    Intel Fortran Compiler is better, gfortran is part of the GNU Compiler Collection and is free.
 \end{frame}
-\begin{frame}
-    \frametitle{Libraries}
+\begin{frame}[fragile]
+    \frametitle{Compiler Warnings}
+    \begin{lstlisting}[numbers=none]
+    -warn all
+    \end{lstlisting}
+    Warnings are unexpected behaviour, e.g. using of uninitialised variables, unreachable code.
 \end{frame}
-\begin{frame}
-    \frametitle{Optimisations}
+\begin{frame}[fragile]
+    \frametitle{Checks}
+    \begin{lstlisting}[numbers=none]
+    -check all
+    \end{lstlisting}
+    Run time checks slow the execution down, but useful during development.
+    Checks include array bounds, but also give run-time warnings when temporary arrays are created.
 \end{frame}
-\begin{frame}
-    \frametitle{da}
+\begin{frame}[fragile]
+    \frametitle{Optimisation Levels}
+    \begin{lstlisting}[numbers=none]
+    -O<n>
+    \end{lstlisting}
+    \texttt{n} between 0 and 3.
+    \begin{itemize}
+    \item \texttt{-O0} means no optimisation, everything exactly as written
+    \item \texttt{-O2} normal optimisation, usually safe
+    \item \texttt{-O3} strong optimisation, can introduce errors, use with care.
+    \end{itemize}
 \end{frame}
-\begin{frame}
-    \frametitle{dah}
+\begin{frame}[fragile]
+    \frametitle{Debugging Symbols}
+    \begin{lstlisting}[numbers=none]
+    -g
+    \end{lstlisting}
+    Include actual code in executable. Can be read by debuggers or \texttt{objdump -S}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Includes}
+    \begin{lstlisting}[numbers=none]
+    -I <CPATH>
+    -i <MOD_FILE>
+    \end{lstlisting}
+    \texttt{-i} and \texttt{-I} are used for compilation. They give the file (\texttt{-i}) and directory (\texttt{-I}) of the include and \texttt{.mod} files.
+
+    \begin{lstlisting}[numbers=none]
+    -I ./includes -l foo
+    \end{lstlisting}
+    searches for the include file \texttt{foo.mod} in \texttt{./includes} first, then all directories in \texttt{\$CPATH}.
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Linking to Libraries}
+    \begin{lstlisting}[numbers=none]
+    -L <LIB_PATH>
+    -l <LIB_NAME>
+    \end{lstlisting}
+    \texttt{-l} and \texttt{-L} are used for linking. They give the directory (\texttt{-L}) and library name (\texttt{-l}). 
+
+    \begin{lstlisting}[numbers=none]
+    -L ./libs -l foo
+    \end{lstlisting}
+    searches for the library files \texttt{libfoo.a} or \texttt{libfoo.so} in \texttt{./libs} first, then all directories in \texttt{\$LD\_LIBRARY\_PATH}.
 \end{frame}
