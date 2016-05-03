@@ -1,4 +1,89 @@
 \section{Makefile}
 \begin{frame}
+    \frametitle{Compilation Automation}
+    Compiling larger projects can become tiresome.
+
+    Compilation Automation has been developed some time ago. 
+    Most successful system: \textbf{make}
+\end{frame}
+
+\defverbatim[colored]\Lst{%
+\begin{lstlisting}[tabsize=8,showtabs,frame=single]
+<target> : <sources>
+	<commands>
+\end{lstlisting}}
+
+\begin{frame}
     \frametitle{Makefile}
+    \textbf{make} gets its instructions from a specific file in the current directory:
+
+    \texttt{Makefile}
+
+    It contains rules that follow this syntax:
+\Lst
+    Note that the \texttt{<commands>} are indented by a \texttt{<TAB>} character, not spaces!
+\end{frame}
+
+\defverbatim[colored]\LstBasic{%
+\begin{lstlisting}[tabsize=8,showtabs,frame=single]
+foo : foo.f90
+	ifort -o foo foo.f90
+\end{lstlisting}}
+
+\begin{frame}
+    \frametitle{Basic}
+    The most basic rule would look like this:
+\LstBasic
+\end{frame}
+
+\defverbatim[colored]\LstRef{%
+\begin{lstlisting}[tabsize=8,showtabs,frame=single]
+foo : foo.f90
+	ifort -o $@ $<
+\end{lstlisting}}
+
+\begin{frame}
+    \frametitle{Basic}
+    We can make some substitutions:
+    \begin{itemize}
+        \item \texttt{\$@} refers to the target.
+        \item \texttt{\$<} refers to the first source
+        \item \texttt{\$\^{ }} refers to all the sources
+    \end{itemize}
+\LstRef
+\end{frame}
+
+\defverbatim[colored]\LstGen{%
+\begin{lstlisting}[tabsize=8,showtabs,frame=single]
+%.o : %.f90
+	ifort -c -o $@ $<
+
+foo : foo.o bar.o
+	ifort -o $@ $^
+\end{lstlisting}}
+
+\begin{frame}
+    \frametitle{Automatic Rules}
+    Often, the rule is identical for many if not all objects, so we can generalise:
+\LstGen
+\end{frame}
+
+\defverbatim[colored]\LstVars{%
+\begin{lstlisting}[tabsize=8,showtabs,frame=single]
+FC = ifort
+FFLAGS = -warn all -check all
+LD = $(FC)
+LDFLAGS = $(FFLAGS) -l foo
+
+%.o : %.f90
+	$(FC) $(FFLAGS) -o $@ $<
+
+foo : foo.o bar.o
+	$(LD) $(LDFLAGS) -o $@ $^
+\end{lstlisting}}
+
+\begin{frame}
+    \frametitle{Automatic Rules}
+    Variables can be used to keep simplity it further. In the example below, it would be much easier to change between compilers:
+\LstVars
 \end{frame}
