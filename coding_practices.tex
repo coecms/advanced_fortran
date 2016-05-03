@@ -1,0 +1,74 @@
+\section{Coding Practices}
+
+% \begin{frame}
+%     \frametitle{Comments}
+%     We all use comments too sparingly.
+%     
+%     Someone else, or you in 2 years, will not remember what was in your head when you wrote this piece of code.
+%     So when writing code, keep readability in mind. 
+% 
+% \end{frame}
+% 
+% \begin{frame}[fragile]
+%     \frametitle{Comments continued}
+% 
+%     Comments should convey why you did what you did, not what you did.
+%     \begin{lstlisting}
+%     ! increment i
+%     i = i + 1
+%     \end{lstlisting}
+%     is useless
+% 
+%     \begin{lstlisting}
+%     ! Calc absolute distance between A and B
+%     dist = sqrt((A(1) - B(1))**2 + (A(2) - B(2))**2)
+%     \end{lstlisting}
+%     is good.
+% 
+% \end{frame}
+% 
+
+\begin{frame}
+    \frametitle{Error Checking/Handling}
+    Many Fortran routines that could conceivably fail have 
+    optional error arguments.
+
+    Examples:
+
+    \begin{itemize}
+        \item \texttt{OPEN}, \texttt{READ}, \texttt{WRITE}, even \texttt{CLOSE} have an optional \texttt{IOSTAT} argument that returns an \texttt{INTEGER}.
+        \item \texttt{ALLOCATE}, \texttt{DEALLOCATE} have \texttt{STAT}.
+    \end{itemize}
+
+    By convention, 0 means that there was no issue. A negative value refers to a warning, and a positive value corresponds to an error.
+    Think about what might happen, and how the program should react to this.
+
+    Use them.
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Error passing}
+    Two main error passing philosophies:
+
+    In one, the error is an (often optional) \texttt{INTENT(OUT)} parameter. 
+    \begin{lstlisting}
+    CALL mySub(arg1, arg2, error)
+    \end{lstlisting}
+
+    In the other, you call a function that returns the error code:
+    \begin{lstlisting}
+    error = myFunc(arg1, arg2)
+    \end{lstlisting}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Fragile and Robust}
+    Error handling allows you to design your software to be either fragile or robust:
+
+    A \textbf{robust} program will attempt to plow ahead, possibly logging the error. 
+    While desirable for a deployed program, this might obscure the real cause of odd behaviour later on.
+
+    A \textbf{fragile} program will fall over early upon encountering an unexpected situation. 
+    This is particularly useful during programming and debugging, but can be annoying in production.
+\end{frame}
