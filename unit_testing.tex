@@ -1,5 +1,66 @@
+\section{Unit Testing}
+
 \begin{frame}
-    \frametitle{Testing}
-    pfUnit 
+    \frametitle{Unit Testing Background}
+    Testing individual functions/subroutines ("Units") independently.
+
+    Helps to ensure that each part of a program is working as intended.
+
+    Continued testing helps to determine wether changes break functionality.
 \end{frame}
 
+\begin{frame}
+    \frametitle{xUnit}
+    Most Unit Testing Frameworks follow the \textbf{xUnit} layout.
+
+    \begin{itemize}
+        \item Each test is similar to a routine call in the specific programming language.
+        \item Keyword or routine name beginning with \texttt{test\_} to indicate tests
+        \item \texttt{ASSERT} statement to evaluate each test.
+        \item Optional \texttt{setup} and \texttt{teardown} procedures that are called
+            before/after each test.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{pFUnit}
+    Uses Python to create wrapper Fortran code for each test.
+
+    \begin{lstlisting}
+    @test
+    subroutine test_a_equals_a()
+        use pfunit_mod
+        implicit none
+        @assertEqual("a", "a")
+    end subroutine test_a_equals_a
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{pFUnit continued}
+    \begin{itemize}
+        \item Files containing tests have file extension \texttt{.pf}
+        \item File called \texttt{testSuites.inc} containing the file names.
+    \end{itemize}
+    Example:
+    If there are tests in a file called \texttt{test\_something.pf}, then there needs to be a line 
+    \begin{lstlisting}
+    ADD_TEST_SUITE(test_something_suite)
+    \end{lstlisting}
+    in the file \texttt{testSuites.inc}.
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Test Driven Development}
+    Writing Tests before actually implementing the functionality helps focus on
+    how the unit is supposed to behave.
+
+    TDD cycle:
+    \begin{enumerate}
+        \item{Write Test}
+        \item{Verify Test fails}
+        \item{Implement Test}
+        \item{Verify Test succeeds}
+    \end{enumerate}
+\end{frame}
