@@ -7,18 +7,22 @@
         \item gfortran
     \end{itemize}
     Intel Fortran Compiler is better, gfortran is part of the GNU Compiler Collection and is free.
+
+    On NCI, \texttt{mpif90} and \texttt{mpifort} are used as wrappers for Intel Fortran. 
 \end{frame}
 \begin{frame}[fragile]
     \frametitle{Compiler Warnings}
     \begin{lstlisting}[language=bash]
-    -warn all
+    -warn all           (ifort)
+    -Wall               (gfortran)
     \end{lstlisting}
     Warnings are unexpected behaviour, e.g. using of uninitialised variables, unreachable code.
 \end{frame}
 \begin{frame}[fragile]
     \frametitle{Checks}
     \begin{lstlisting}[language=bash]
-    -check all
+    -check all          (ifort)    
+    -fcheck=all         (gfortran)
     \end{lstlisting}
     Run time checks slow the execution down, but useful during development.
     Checks include array bounds, but also give run-time warnings when temporary arrays are created.
@@ -67,4 +71,11 @@
     -L ./libs -l foo
     \end{lstlisting}
     searches for the library files \texttt{libfoo.a} or \texttt{libfoo.so} in \texttt{./libs} first, then all directories in \texttt{\$LD\_LIBRARY\_PATH}.
+\end{frame}
+
+\begin{frame}
+    \frametitle{Questions}
+    This concludes this short chapter on compiler options.
+
+    Any questions so far?
 \end{frame}
