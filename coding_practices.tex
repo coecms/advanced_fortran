@@ -27,6 +27,77 @@
 % 
 % \end{frame}
 % 
+\begin{frame}
+    \frametitle{Understandable Code}
+    While writing code, you are actively thinking about writing this code.
+    Every line that you write will make perfect sense while you're writing it.
+
+    But when you look at someone else's code, or even your own code from 6 months ago,
+    you won't have those same thoughts in your head any more.
+
+    And then you will have to spend a lot of brain power to figure out what the code is doing,
+    and why it's doing what it's doing.
+
+    For your own sanity: \textbf{Keep your code understandable}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Comments}
+    The easiest way to keep your code understandable is to write comments.
+    In general: The more the merrier, but:
+
+    Comments should explain \textbf{why} you're doing what you're doing,
+    rather than what you're doing:
+
+    \begin{lstlisting}[language=Fortran]
+    ! Increment i
+    i = i + 1
+    \end{lstlisting}
+    This comment is not useful.
+\end{frame}
+
+\begin{frame}
+    \frametitle{Naming}
+    Often you will think up names. 
+    Names for procedures, variables.
+
+    Think about what to call it. 
+    Make sure that the name really represents what is stored in the variable.
+
+    It's okay to have an iterator called \texttt{i}, if you're consistent about it.
+    
+    But if you want to store some user name, please call it something like \texttt{cUserName}, and not just \texttt{u}.
+    (The leading \texttt{c} stands for the type of variable: \texttt{CHARACTER}.)
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Magic Numbers}
+    Sometimes you need some numbers in your code, for example to check whether another number is even:
+    \begin{lstlisting}
+    if (mod(n, 2) == 0) then
+    \end{lstlisting}
+
+    But sometimes it's more confusing:
+    \begin{lstlisting}
+    if (iErrorCode == 264) then
+    \end{lstlisting}
+    What's the \texttt{264}? What do I do here? This \texttt{264} is what programmers call a 'magic number' --
+    and it hinders understanding the code.
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Avoiding Magic Numbers}
+    The way to avoid magic numbers is to create constants.
+    Say, this \texttt{264} was the error code for \textbf{File Not Found}.
+
+    Then you could do something like this:
+    \begin{lstlisting}
+        INTEGER, PARAMETER :: FileNotFoundError = 264
+        ...
+        if (iErrorCode == FileNotFoundError) then
+    \end{lstlisting}
+    Far easier to read.
+\end{frame}
 
 \begin{frame}
     \frametitle{Error Checking/Handling}
